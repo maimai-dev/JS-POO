@@ -1,25 +1,64 @@
 export default class User {
+    #nome
+    #email
+    #nascimento
+    #role
+    #ativo
     constructor(nome, email, nascimento, role, ativo = true){
-        this.nome = nome
-        this.email = email
-        this.nascimento = nascimento
-        this.role = role || 'estudante'
-        this.ativo = ativo
+        this.#nome = nome
+        this.#email = email
+        this.#nascimento = nascimento
+        this.#role = role || 'estudante'
+        this.#ativo = ativo
     }
+
+    get nome(){
+        return this.#nome
+    }
+
+    get email(){
+        return this.#email
+    }
+
+    get nascimento(){
+        return this.#nascimento
+    }
+
+    get role(){
+        return this.#role
+    }
+
+    get ativo(){
+        return this.#ativo
+    }
+
 
     criarPerfil(nome, email, nascimento){
         return `seu perfil com esses dados foi criado com sucesso:
-        ${this.nome}
-        ${this.email}
-        ${this.nascimento}.`
+        ${this.#nome}
+        ${this.#email}
+        ${this.#nascimento}.`
     }
 
     apagarPerfil(email){
-        return `Seu perfil com o email: ${this.email} foi deletado.`
+        return `Seu perfil com o email: ${this.#email} foi deletado.`
     }
 
+
     exibirInfos(){
-        return `${this.nome}, ${this.email}`
+        if(this.role === 'estudante'){
+            return `dados estudante: ${this.#nome}`
+        }
+        if (this.role === 'admin'){
+            return `dados admin: ${this.#nome}, ${this.role}`
+        }
+        if(this.role === 'docente'){
+            return `dados docente: ${this.#nome}, ${this.email}`
+        }
+    }
+
+    static exibirInfosGenericas(nome, email){
+        return `${nome}, ${email}`
     }
 
     exibirListaCursos(){
@@ -35,10 +74,3 @@ export default class User {
     }
 
 }
-
-const novoUser = new User('Maiara', 'm@m.com', '08/12/2002')
-
-//console.log(novoUser);
-//console.log(novoUser.exibirInfos());
-
-//console.log(User.prototype.isPrototypeOf(novoUser));
